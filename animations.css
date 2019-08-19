@@ -1,5 +1,12 @@
 
 
+body{
+  opacity: 0;
+  animation: background 3s ;
+  animation-duration: 3s;
+  animation-fill-mode: forwards;
+
+}
 /** 2 Handheld **/
    
 
@@ -106,10 +113,3 @@ p{
   to {opacity: 1;}
 }
 
-body{
-  opacity: 0.4;
-  animation: background 3s ;
-  animation-duration: 3s;
-  animation-fill-mode: forwards;
-
-}
