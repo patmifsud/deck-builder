@@ -1,0 +1,67 @@
+
+:root {
+    --textcolor: #2a2a2a;
+    --textsecondarycolor: #828282;
+    --cardbg:white;
+    --bqindents: 40px;
+    --border-raduis:2px;
+    --shadow-one: 0 1px 3px rgba(31, 17, 11, 0.08), 0 1px 2px rgba(44, 33, 29, 0.12);
+    --shadow-two: 0 12px 20px -12px rgba(0, 0, 0, 0.35);
+  }
+
+p, h1, h2, h3, h4, h5, li, div{
+font-family: quiroh, helvetica, Arial, sans-serif;
+font-weight: 500;
+font-style: normal;
+color:var(--textcolor);
+}
+
+body{
+    background:#ffffff;
+}
+
+.card{
+    background:var(--cardbg);
+    border-radius:var(--border-raduis);
+    min-width: 200px;
+    max-width: 300px;
+    min-height:400px;
+    Max-height:500px;
+    /* transition: all 0.2s cubic-bezier(.25,.8,.25,1); */
+    box-shadow:var(--shadow-one);
+    transition: all 0.15s cubic-bezier(.25,.8,.25,1);
+    cursor: pointer;
+}
+
+
+.card:hover{
+    box-shadow:var(--shadow-two);
+}
+
+.card:active{
+    box-shadow:none;
+    opacity: 0.3;
+
+}
+
+#table{
+margin:1% auto 1% auto;
+max-width: 1300px;
+padding: 30px;
+}
+
+a.button{
+    padding:10px 15px;
+    box-shadow:var(--shadow-one);
+    font-weight: 700;
+    transition: all 0.15s cubic-bezier(.25,.8,.25,1);
+    cursor: pointer;
+}
+
+a.button:hover{
+    box-shadow:var(--shadow-two);
+}
+
+a.button:active{
+    box-shadow:none;
+}

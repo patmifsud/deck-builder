@@ -1,0 +1,115 @@
+
+
+/** 2 Handheld **/
+   
+
+@-keyframes handheld-one {
+  1% {
+    top    : 0;
+    right  : 0;
+    bottom : 0;
+    left   : 0;
+  }
+
+  10% {
+    top    : 3px;
+    right  : 0;
+    bottom : 0;
+    left   : 3px;
+  }
+
+  20% {
+    top    : 4px;
+    right  : 0;
+    bottom : 0;
+    left   : 0px;
+  }
+
+  30% {
+    top    : 1px;
+    right  : 3px;
+    bottom : 0;
+    left   : 0px;
+  }
+
+  40% {
+    top    : 0px;
+    right  : 1px;
+    bottom : 3px;
+    left   : 0px;
+  }
+
+  50% {
+    top    : 0px;
+    right  : 0px;
+    bottom : 5px;
+    left   : 2px;
+  }
+
+  60% {
+    top    : 0px;
+    right  : 0px;
+    bottom : 3px;
+    left   : 5px;
+  }
+
+  70% {
+    top    : 1px;
+    right  : 0px;
+    bottom : 0px;
+    left   : 4px;
+  }
+
+  80% {
+    top    : 4px;
+    right  : 0px;
+    bottom : 3px;
+    left   : 4px;
+  }
+
+  90% {
+    top    : 2px;
+    right  : 0px;
+    bottom : 3px;
+    left   : 2px;
+  }
+
+  99% {
+    top    : 0px;
+    right  : 0px;
+    bottom : 0px;
+    left   : 0px;
+  }
+}
+
+#table{
+  display:block;
+  animation: handheld-one 14s infinite;
+  position:relative;
+}
+
+
+p{
+  animation: handheld-one 14s infinite;
+
+}
+
+.card:hover{
+  animation-play-state: running;
+}
+
+
+
+/* 1 Global fade in */
+@keyframes background {
+  from {opacity: 0.4;}
+  to {opacity: 1;}
+}
+
+body{
+  opacity: 0.4;
+  animation: background 3s ;
+  animation-duration: 3s;
+  animation-fill-mode: forwards;
+
+}
