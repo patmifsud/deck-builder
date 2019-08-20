@@ -14,7 +14,6 @@ var cBurn = {title:"Burn", cost:300, atk:20, effect:"burn", effectAttribute:3, r
 window.onload = function () {
 
 loadDivs();
-// deal(shortSword);
 
 dealButton.onclick = function(){
     dealCard("deck", "hand");
@@ -24,15 +23,18 @@ shuffleButton.onclick = function(){
     shuffle(deck);
 }
 
-shuffle(deck);
-
+shuffle(deck);{
 }
 
-// Functions
+// Setup
+
 
 var deck = [cBlock, cBlock, cBlock, cBlock, cBlock, cStrike, cStrike];
 var table = [];
 var hand = [];
+
+
+// Functions
 
 // This funciton takes a card from a place (from) and puts it somewhere else (to). Use lowercase strings 
 function dealCard(from, to) {
