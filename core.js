@@ -23,7 +23,8 @@ shuffleButton.onclick = function(){
     shuffle(deck);
 }
 
-shuffle(deck);{
+shuffle(deck);
+
 }
 
 // Setup
@@ -86,12 +87,6 @@ function reportCardsToConsole() {
     tableList.push(obj.title);});
     console.log("Deck (" + deck.length + " cards)" + deckList + " | " + "Hand (" + hand.length + " cards)" + handList + " | " + "Table ("  + table.length + " cards)" + tableList);
 }
-
-
-
-
-
-
 
 // from stackoverflow, don't know how it works https://stackoverflow.com/questions/6274339/how-can-i-shuffle-an-array
 function shuffle(obj) {
