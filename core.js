@@ -1,13 +1,13 @@
 
 
 // Cards
-var cBlock = {name:"Block", cost:20, def:10, rarity:0 }
-var cShield = {name:"Shield", cost:20, def:15, rarity:1}
-var cBig_Shield = {name:"Big Shield", cost:200, def:25, rarity:2 }
-var cStrike = {name:"Strike", cost:30, atk:5, rarity:0 }
-var cBolt = {name:"Bolt", cost:70, atk:10, rarity:1 }
-var cDefencive_Strike = {name:"Defencive_Strike", cost:200, def:20, atk:20, rarity:2 }
-var cBurn = {name:"Burn", cost:300, atk:20, effect:"burn", effectAttribute:3, rarity:2 }
+var cBlock = {title:"Block", cost:20, def:10, rarity:0 }
+var cShield = {title:"Shield", cost:20, def:15, rarity:1}
+var cBig_Shield = {title:"Big Shield", cost:200, def:25, rarity:2 }
+var cStrike = {title:"Strike", cost:30, atk:5, rarity:0 }
+var cBolt = {title:"Bolt", cost:70, atk:10, rarity:1 }
+var cDefencive_Strike = {title:"Defencive_Strike", cost:200, def:20, atk:20, rarity:2 }
+var cBurn = {title:"Burn", cost:300, atk:20, effect:"burn", effectAttribute:3, rarity:2 }
 
 // Script
 
@@ -17,7 +17,7 @@ loadDivs();
 // deal(shortSword);
 
 dealButton.onclick = function(){
-    dealCard();
+    dealCard("deck", "hand");
 }
 
 shuffleButton.onclick = function(){
@@ -31,18 +31,38 @@ shuffle(deck);
 // Functions
 
 var deck = [cBlock, cBlock, cBlock, cBlock, cBlock, cStrike, cStrike];
-var hand = [];
 var table = [];
+var hand = [];
 
-function dealCard() {
-    if (deck.length < 1){ alert("No cards in your deck"); console.log("Deck Empty"); } else{
-        // can only be 5 cards on the table. Get rid of zero if too many
-        if (table.length >= 5){ table.shift();  };
-        table.push(deck[0]);
-        deck.shift();
-        console.log("Card drawn from deck and placed on table");
+// This funciton takes a card from a place (from) and puts it somewhere else (to). Use lowercase strings 
+function dealCard(from, to) {
+    var fromVar = deck;
+    var toVar = hand;
+    
+    if (from == "deck"){fromVar = deck; } 
+    else if (from == "table"){fromVar = table;}
+    else if (from == "hand"){fromVar = hand;};
+
+    if (to == "deck"){toVar = deck;} 
+    else if (to == "table"){toVar = table;}
+    else if (to == "hand"){toVar = hand;};
+    
+    if(fromVar.length > 0){
+        toVar.push(fromVar[0]);
+        fromVar.shift();
+        console.log("Card drawn from " + from + " and placed on " + to );
+        reportCardsToConsole();
+    } else {
+        console.log("There are no cards in " + from + " to draw into " + to );
     }
-    reportCardsToConsole();
+
+    // if (deck.length < 1){ alert("No cards in your deck"); console.log("Deck Empty"); } else{
+    //     // can only be 5 cards on the table. Get rid of zero if too many
+    //     if (table.length >= 5){ table.shift();  };
+    //     table.push(deck[0]);
+    //     deck.shift();
+    //     console.log("Card drawn from deck and placed on table");
+    // }
 }
 
 function loadDivs() {
@@ -55,15 +75,21 @@ function loadDivs() {
 function reportCardsToConsole() {
     var deckList = []; var handList = []; var tableList = [];
     deck.forEach(function(obj){
-    deckList.push(obj.name);});
+    deckList.push(obj.title);});
 
     hand.forEach(function(obj){
-    handList.push(obj.name);});
+    handList.push(obj.title);});
 
     table.forEach(function(obj){
-    tableList.push(obj.name);});
-    console.log("Deck (" + deck.length + " card(s)) " + deckList + " | " + "Hand (" + hand.length + " card(s)) " + handList + " | " + "Table ("  + table.length + " card(s))" + tableList);
+    tableList.push(obj.title);});
+    console.log("Deck (" + deck.length + " cards)" + deckList + " | " + "Hand (" + hand.length + " cards)" + handList + " | " + "Table ("  + table.length + " cards)" + tableList);
 }
+
+
+
+
+
+
 
 // from stackoverflow, don't know how it works https://stackoverflow.com/questions/6274339/how-can-i-shuffle-an-array
 function shuffle(obj) {
@@ -78,3 +104,14 @@ function shuffle(obj) {
     reportCardsToConsole();
     return obj;
 }
+
+/* <div class="card" id="tableCard">
+        <div class="inner">
+            <h4 class="title"></h4>
+            <div class="picture"><div class="pic-interior"></div></div>
+            <p class="desc"></p>
+            <p class="stats"></p>
+        </div>
+    </div> */
+
+// I needed to make this variable no local but didn't know how else other than inserting it here.
