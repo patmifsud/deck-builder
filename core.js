@@ -52,7 +52,7 @@ window.onload = function () {
     loadDivs();
 
     dealButton.onclick = function () {
-        dealCard("deck", "hand");
+        dealCard("deck", "table");
     }
 
     shuffleButton.onclick = function () {
@@ -63,16 +63,28 @@ window.onload = function () {
 
 }
 
-// Setup
+// Config
 
 
 var deck = [cBlock, cBolt, cBlock, cBlock, cBurn, cStrike, cStrike];
 var table = [];
 var hand = [];
 
+var maxHandSize
 
 // Functions
 
+function buildCardsOnTable() {
+    var dealCards = "";
+    for (var i = 0; i < table.length; i++) {
+        var mintCue = table[i];
+        dealCards += mintCard(mintCue);
+    };
+    cardRow.innerHTML = dealCards;
+};
+
+
+//refactor this to instead be like 'writeCardTable' etc
 // This funciton takes a card from a place (from) and puts it somewhere else (to). Use lowercase strings 
 function dealCard(from, to) {
     var fromVar;
@@ -114,11 +126,13 @@ function dealCard(from, to) {
     } else {
         console.log("There are no cards in " + from + " to draw into " + to);
     }
+    buildCardsOnTable()
 };
 
 function loadDivs() {
     var dealButton = document.getElementById("dealButton");
     var shuffleButton = document.getElementById("shuffleButton");
+    var cardRow = document.getElementById('cardRow');
 }
 
 // misc
@@ -155,6 +169,14 @@ function shuffle(obj) {
     return obj;
 }
 
+function mintCard(writeCard) {
+    var mintedCard = "<div class=\"card " + writeCard.title + "\" id=\"Card\"> <div class=\"inner\"> <h4 class=\"title\">" + writeCard.title + "</h4> <div class=\"picture\"><div class=\"pic-interior\"></div></div> <p class=\"desc\"></p><p class=\"stats\">  Cost: " + writeCard.cost + "</p></div> </div>";
+    console.log(writeCard.title + " has been minted");
+    return mintedCard;
+
+}
+
+
 /* <div class="card" id="tableCard">
         <div class="inner">
             <h4 class="title"></h4>
@@ -163,5 +185,3 @@ function shuffle(obj) {
             <p class="stats"></p>
         </div>
     </div> */
-
-// I needed to make this variable no local but didn't know how else other than inserting it here.
