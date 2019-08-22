@@ -1,42 +1,43 @@
 // Cards
-var cBlock = {
+let cBlock = {
     title: "Block",
     cost: 20,
     def: 10,
     rarity: 0
+
 };
-var cShield = {
+let cShield = {
     title: "Shield",
     cost: 20,
     def: 15,
     rarity: 1
 };
-var cBig_Shield = {
+let cBig_Shield = {
     title: "Big Shield",
     cost: 200,
     def: 25,
     rarity: 2
 };
-var cStrike = {
+let cStrike = {
     title: "Strike",
     cost: 30,
     atk: 5,
     rarity: 0
 };
-var cBolt = {
+let cBolt = {
     title: "Bolt",
     cost: 70,
     atk: 10,
     rarity: 1
 };
-var cDefencive_Strike = {
+let cDefencive_Strike = {
     title: "Defencive_Strike",
     cost: 200,
     def: 20,
     atk: 20,
     rarity: 2
 };
-var cBurn = {
+let cBurn = {
     title: "Burn",
     cost: 300,
     atk: 20,
@@ -48,9 +49,7 @@ var cBurn = {
 // Script
 
 window.onload = function () {
-
     loadDivs();
-
     dealButton.onclick = function () {
         dealCard("deck", "table");
     }
@@ -65,82 +64,109 @@ window.onload = function () {
 
 // Config
 
-
 var deck = [cBlock, cBolt, cBlock, cBlock, cBurn, cStrike, cStrike];
+deck.maxSize = 50;
 var table = [];
+table.maxSize = 6;
 var hand = [];
+hand.maxSize = 5;
+var maxHandSize = 7;
+var maxTableSize = 6;
 
-var maxHandSize
 
 // Functions
 
-function buildCardsOnTable() {
-    var dealCards = "";
-    for (var i = 0; i < table.length; i++) {
-        var mintCue = table[i];
-        dealCards += mintCard(mintCue);
-    };
-    cardRow.innerHTML = dealCards;
+function placeCard(card, location) {
+    if (location.length < location.maxSize) {
+        location.push(card);
+    } else {
+        console.log("Already " + maxTableSize + " cards on the table")
+    }
+    buildCards(location);
 };
+
+function removeCard(card, location) {
+        for( var i = 0; i < location.length; i++){ 
+            if ( location[i] === card) {
+              location.splice(i, 1); 
+            }
+         }
+    buildCards(location);
+};
+
+// Take all the cards in one place (hand, table, deck), create the html for each card and write it to the location provided 
+function buildCards(location) {
+    let collectToWrite = "";
+    for (let i = 0; i < location.length; i++) {
+        let mintThisCard = location[i];
+        collectToWrite += mintCards(mintThisCard);
+    };
+    location.div.innerHTML = collectToWrite;
+};
+
 
 
 //refactor this to instead be like 'writeCardTable' etc
 // This funciton takes a card from a place (from) and puts it somewhere else (to). Use lowercase strings 
+
+
 function dealCard(from, to) {
-    var fromVar;
-    var toVar;
-    var toLimit;
+    let fromlet;
+    let tolet;
+    let toLimit;
 
     if (from == "deck") {
-        fromVar = deck;
+        fromlet = deck;
     } else if (from == "table") {
-        fromVar = table;
+        fromlet = table;
     } else if (from == "hand") {
-        fromVar = hand;
+        fromlet = hand;
     } else {
         console.log("Invalid params. deck table or hand as strings please.");
         return;
     };
 
     if (to == "deck") {
-        toVar = deck;
+        tolet = deck;
         toLimit = 50;
     } else if (to == "table") {
-        toVar = table;
+        tolet = table;
         toLimit = 5;
     } else if (to == "hand") {
-        toVar = hand;
+        tolet = hand;
         toLimit = 6;
     } else {
         console.log("Invalid params. deck table or hand as strings please.");
         return;
     };
 
-    if (toVar.length > toLimit) {
+    if (tolet.length > toLimit) {
         console.log(to + " was full. No card drawn.");
-    } else if (fromVar.length > 0) {
-        toVar.push(fromVar[0]);
-        fromVar.shift();
-        console.log("Card drawn ", toVar.slice(-1)[0], " from ", from, " and placed on ", to);
+    } else if (fromlet.length > 0) {
+        tolet.push(fromlet[0]);
+        fromlet.shift();
+        console.log("Card drawn ", tolet.slice(-1)[0], " from ", from, " and placed on ", to);
         reportCardsToConsole();
     } else {
         console.log("There are no cards in " + from + " to draw into " + to);
     }
-    buildCardsOnTable()
+    buildCards(table);
 };
 
 function loadDivs() {
-    var dealButton = document.getElementById("dealButton");
-    var shuffleButton = document.getElementById("shuffleButton");
-    var cardRow = document.getElementById('cardRow');
+    let dealButton = document.getElementById("dealButton");
+    let shuffleButton = document.getElementById("shuffleButton");
+    table.div = document.getElementById('cardRow');
+    hand.div = document.getElementById('hand');
+    deck.div = document.getElementById('deck');
 }
 
 // misc
 // List all cards in hand, deck and table out in the console
 function reportCardsToConsole() {
-    var deckList = [];
-    var handList = [];
-    var tableList = [];
+    let deckList = [];
+    let handList = [];
+    let tableList = [];
     deck.forEach(function (obj) {
         deckList.push(obj.title);
     });
@@ -157,7 +183,7 @@ function reportCardsToConsole() {
 
 // from stackoverflow, don't know how it works https://stackoverflow.com/questions/6274339/how-can-i-shuffle-an-array
 function shuffle(obj) {
-    var j, x, i;
+    let j, x, i;
     for (i = obj.length - 1; i > 0; i--) {
         j = Math.floor(Math.random() * (i + 1));
         x = obj[i];
@@ -169,9 +195,9 @@ function shuffle(obj) {
     return obj;
 }
 
-function mintCard(writeCard) {
-    var mintedCard = "<div class=\"card " + writeCard.title + "\" id=\"Card\"> <div class=\"inner\"> <h4 class=\"title\">" + writeCard.title + "</h4> <div class=\"picture\"><div class=\"pic-interior\"></div></div> <p class=\"desc\"></p><p class=\"stats\">  Cost: " + writeCard.cost + "</p></div> </div>";
-    console.log(writeCard.title + " has been minted");
+function mintCards(mintThisCard) {
+    let mintedCard = "<div class=\"card " + mintThisCard.title + "\" id=\"Card\"> <div class=\"inner\"> <h4 class=\"title\">" + mintThisCard.title + "</h4> <div class=\"picture\"><div class=\"pic-interior\"></div></div> <p class=\"desc\"></p><p class=\"stats\">  Cost: " + mintThisCard.cost + "</p></div> </div>";
+    // console.log(mintThisCard.title + " has been minted");
     return mintedCard;
 
 }
