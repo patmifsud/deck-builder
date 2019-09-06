@@ -44,18 +44,24 @@ body {
     margin: 0 0 20px 0;
 }
 
+.cardsGoHere{
+    display: flex;
+    flex-wrap: wrap;
+width:;
+}
+
 .card {
+    display: inline-flex;
     background: var(--cardbg);
     border-radius: var(--border-raduis);
-    padding: 20px;
-    min-width: 200px;
-    max-width: 300px;
-    min-height: 300px;
+    padding: 15px;
+    min-width: 125px;
+    max-width: 150px;
+    min-height: 200px;
     margin: 20px;
     /* transition: all 0.2s cubic-bezier(.25,.8,.25,1); */
     box-shadow: var(--shadow-one);
     transition: height 1s cubic-bezier(.25, .8, .25, 1);
-
     cursor: pointer;
 }
 
@@ -75,7 +81,6 @@ a.button:active {
 
 #table {
     max-width: 1300px;
-    padding: 30px;
 }
 
 
@@ -98,8 +103,7 @@ a.button {
 
 /* dragging */
 .draggable-source--is-dragging{
-min-height: 0;
-opacity: 0.2;
+opacity: 0.15;
 overflow: hidden;
 box-shadow: none!important;}
 

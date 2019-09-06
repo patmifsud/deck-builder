@@ -164,32 +164,46 @@ hand.titleString = "hand";
 
 
 // dragging 
-var sortable = new Draggable.Sortable(
-    document.querySelector('#deck'), {
-        draggable: '.card',
-    }
-)
 
-var sortable = new Draggable.Sortable(
-    document.querySelector('#table'), {
-        draggable: '.card',
-    }
-)
+var droppable = new Draggable.Sortable(document.querySelectorAll('.playableLocation'), {
+    draggable: '.card',
+ });
 
-var sortable = new Draggable.Sortable(
-    document.querySelector('#hand'), {
-        draggable: '.card',
-    }
-)
-sortable.on('sortable:start', () => {
-    console.log('sortable:start')
-})
-sortable.on('sortable:sort', () => {
-    console.log('sortable:sort')
-})
-sortable.on('sortable:sorted', () => {
-    console.log('sortable:sorted')
-})
-sortable.on('sortable:stop', () => {
-    console.log('sortable:stop')
-})
+//  triggers when a card is picked up
+ droppable.on('drag:move', function() {
+    var heldCard = document.querySelector('.draggable--original');
+    console.log(heldCard.getAttribute('data-order') + heldCard.getAttribute('data-location') + heldCard.getAttribute('data-cardId'));
+  });
+  
+
+
+
+// var sortable = new Draggable.Sortable(
+//     document.querySelector('#deck'), {
+//         draggable: '.card',
+//     }
+// )
+
+// var sortable = new Draggable.Sortable(
+//     document.querySelector('#table'), {
+//         draggable: '.card',
+//     }
+// )
+
+// var sortable = new Draggable.Sortable(
+//     document.querySelector('#hand'), {
+//         draggable: '.card',
+//     }
+// )
+// sortable.on('sortable:start', () => {
+//     console.log('sortable:start')
+// })
+// sortable.on('sortable:sort', () => {
+//     console.log('sortable:sort')
+// })
+// sortable.on('sortable:sorted', () => {
+//     console.log('sortable:sorted')
+// })
+// sortable.on('sortable:stop', () => {
+//     console.log('sortable:stop')
+// })
