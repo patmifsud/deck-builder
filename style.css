@@ -54,8 +54,7 @@ body {
     margin: 20px;
     /* transition: all 0.2s cubic-bezier(.25,.8,.25,1); */
     box-shadow: var(--shadow-one);
-    transition: all 0.15s cubic-bezier(.25, .8, .25, 1);
-    transition: positio 0.15s cubic-bezier(.25, .8, .25, 1);
+    transition: height 1s cubic-bezier(.25, .8, .25, 1);
 
     cursor: pointer;
 }
@@ -98,10 +97,14 @@ a.button {
 
 
 /* dragging */
-.dragging{
-visibility: hidden;}
+.draggable-source--is-dragging{
+min-height: 0;
+opacity: 0.2;
+overflow: hidden;
+box-shadow: none!important;}
 
 
-.mirror	{
-    box-shadow: 7px 99px 134px -45px rgba(0,0,0,0.31);
+.draggable-mirror	{
+    box-shadow: 7px 99px 134px -45px rgba(0,0,0,0.31)!important;
+    opacity: 0.8;
 }
