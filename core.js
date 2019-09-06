@@ -18,8 +18,8 @@ window.onload = function () {
 
     reportCardsToConsole();
 
+    var heldCard;
 }
-
 
 
 // Functions
@@ -171,11 +171,22 @@ var droppable = new Draggable.Sortable(document.querySelectorAll('.playableLocat
 
 //  triggers when a card is picked up
  droppable.on('drag:move', function() {
-    var heldCard = document.querySelector('.draggable--original');
-    console.log(heldCard.getAttribute('data-order') + heldCard.getAttribute('data-location') + heldCard.getAttribute('data-cardId'));
+    heldCard = document.querySelector('.draggable--original');
+    // console.log(heldCard.getAttribute('data-order') + heldCard.getAttribute('data-location') + heldCard.getAttribute('data-cardId'));
   });
-  
 
+  droppable.on('drag:stop', function() {
+    //   get the div with the class .draggable-container--over, which is applied by draggable
+  var cardPlacedInto = document.querySelector('.draggable-container--over');
+
+//   script to get the order of the card. Trying to figure this out. Right now it seems like the class isn't applied while this event is going, so need to try something else. Can push ahead without getting the order of the cards right on drop, but would preffer to do it properly.
+    let placedCard = document.querySelector('.draggable-source--placed');
+
+    console.log(placedCard);
+//   console.log(Array.prototype.indexOf.call(placedCard.parentElement.children, this));
+
+  console.log("please move card from " + heldCard.getAttribute('data-location') + " to " + cardPlacedInto.id);
+  });
 
 
 // var sortable = new Draggable.Sortable(

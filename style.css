@@ -8,6 +8,7 @@
     --shadow-two: 0 12px 20px -12px rgba(0, 0, 0, 0.35);
     --shadow-inset: inset 0px 10px 84px -23px rgba(17, 20, 38, 0.1);
     user-select: none;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
 p,
@@ -42,6 +43,7 @@ body {
     display: flex;
     flex-wrap: wrap;
     margin: 0 0 20px 0;
+    overscroll-behavior: none;
 }
 
 .cardsGoHere{
@@ -112,3 +114,12 @@ box-shadow: none!important;}
     box-shadow: 7px 99px 134px -45px rgba(0,0,0,0.31)!important;
     opacity: 0.8;
 }
+
+.draggable-container--over{
+    background-color: #eeeeee;
+}
+
+
+div{
+outline: none!important}
+
