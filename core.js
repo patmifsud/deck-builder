@@ -17,7 +17,9 @@ window.onload = function () {
     buildCards(deck);
 
     reportCardsToConsole();
+
 }
+
 
 
 // Functions
@@ -27,28 +29,28 @@ function placeCard(cardNum, location) {
     if (location.length < location.maxSize) {
         location.push(location[cardNum]);
     } else {
-        console.log("Already " + table.maxSize + " cards on/in " + location.titleString )
+        console.log("Already " + table.maxSize + " cards on/in " + location.titleString + ". Called off the action")
     }
     buildCards(location);
-    console.log("Added card no. " + cardNum + " to " + location.titleString );
+    console.log("Added card no. " + cardNum + " to " + location.titleString);
 };
 
 function removeCard(cardNum, location) {
     location.splice(cardNum, 1);
     buildCards(location);
-    console.log("removed card no. " + cardNum + " from " + location.titleString );
+    console.log("removed card no. " + cardNum + " from " + location.titleString);
 };
 
 function moveCard(cardNum, from, to) {
     if (to.length < to.maxSize) {
         to.push(from[cardNum]);
+        console.log("Added card to " + to.titleString);
         removeCard(cardNum, from)
         buildCards(to);
         buildCards(from);
     } else {
-        console.log("Already " + table.maxSize + " cards on/in " + to.titleString)
+        console.log("Already " + table.maxSize + " cards on/in " + to.titleString + ". Called off the action")
     }
-
 };
 
 
@@ -67,7 +69,7 @@ function cardClick(cardRaw) {
     }
 }
 
-
+// 🃏 Rednering cards in HTML
 // Take all the cards in one place (hand, table, deck), create the html for each card and write it to the location provided 
 function buildCards(location) {
     let collectToWrite = "";
@@ -80,15 +82,12 @@ function buildCards(location) {
     location.div.innerHTML = collectToWrite;
 };
 
-function checkForCard(card, location) {
-    for (var i = 0; i < location.length; i++) {
-        if (location[i] === card) {
-            return true;
-        } else {
-            return false;
-        };
-    };
-};
+function mintCards(mintThisCard, orderNumber, locationTitle) {
+    let mintedCard = "<div data-order=\"" + orderNumber + "\" data-location=\"" + locationTitle + "\" data-cardId=\"c" + mintThisCard.title + "\" class=\"card " + mintThisCard.title + "\" id=\"Card\" onClick=\"cardClick(this);\"> <div class=\"inner\"> <h4 class=\"title\">" + mintThisCard.title + "</h4> <div class=\"picture\"><div class=\"pic-interior\"></div></div> <p class=\"desc\"></p><p class=\"stats\">  Cost: " + mintThisCard.cost + "</p></div> </div>";
+    // check what is being minted:  console.log("minted a fresh " + mintThisCard.title + " in " + locationTitle);
+    return mintedCard;
+}
+
 
 // List all cards in hand, deck and table out in the console
 function reportCardsToConsole() {
@@ -96,18 +95,21 @@ function reportCardsToConsole() {
     let handList = [];
     let tableList = [];
     // this errors if one of the arrays is empty
-    if (deck.length > 0){
-    deck.forEach(function (obj) {
-        deckList.push(obj.title);
-    });}
-    if (hand.length > 0){
-    hand.forEach(function (obj) {
-        handList.push(obj.title);
-    });}
-    if (table.length > 0){
-    table.forEach(function (obj) {
-        tableList.push(obj.title);
-    });}
+    if (deck.length > 0) {
+        deck.forEach(function (obj) {
+            deckList.push(obj.title);
+        });
+    }
+    if (hand.length > 0) {
+        hand.forEach(function (obj) {
+            handList.push(obj.title);
+        });
+    }
+    if (table.length > 0) {
+        table.forEach(function (obj) {
+            tableList.push(obj.title);
+        });
+    }
     console.log("Deck (" + deck.length + " cards)" + deckList + " | " + "Hand (" + hand.length + " cards)" + handList + " | " + "Table (" + table.length + " cards)" + tableList);
 }
 
@@ -122,14 +124,20 @@ function shuffle(obj) {
     }
     console.log("shuffled");
     reportCardsToConsole();
+    buildCards(obj);
     return obj;
 }
 
-function mintCards(mintThisCard, orderNumber, locationTitle) {
-    let mintedCard = "<div data-order=\"" + orderNumber + "\" data-location=\"" + locationTitle + "\" data-cardId=\"c" + mintThisCard.title + "\" class=\"card " + mintThisCard.title + "\" id=\"Card\" onClick=\"cardClick(this);\"> <div class=\"inner\"> <h4 class=\"title\">" + mintThisCard.title + "</h4> <div class=\"picture\"><div class=\"pic-interior\"></div></div> <p class=\"desc\"></p><p class=\"stats\">  Cost: " + mintThisCard.cost + "</p></div> </div>";
-    // check what is being minted:  console.log("minted a fresh " + mintThisCard.title + " in " + locationTitle);
-    return mintedCard;
-}
+// Is this card in this place? 
+function checkForCard(card, location) {
+    for (var i = 0; i < location.length; i++) {
+        if (location[i] === card) {
+            return true;
+        } else {
+            return false;
+        };
+    };
+};
 
 function loadDivs() {
     var dealButton = document.getElementById("dealButton");
@@ -153,109 +161,35 @@ hand.maxSize = 5;
 hand.titleString = "hand";
 
 
-// old version that moved and added cards by card name and not by order in location
-// may still need it
-// function placeCard(card, location) {
-//     if (location.length < location.maxSize) {
-//         location.push(card);
-//     } else {
-//         console.log("Already " + maxTableSize + " cards on/in " + location.name)
-//     }
-//     buildCards(location);
-//     reportCardsToConsole();
-// };
-
-// function removeCard(card, location) {
-//     for (var i = 0; i < location.length; i++) {
-//         if (location[i] === card) {
-//             location.splice(i, 1);
-//             break;
-//         }
-//     }
-//     buildCards(location);
-//     reportCardsToConsole();
-// };
-
-// function moveCard(card, from, to) {
-//     if (checkForCard(card, from)) {
-//         if (to.length < to.maxSize) {
-//             to.push(card);
-//         } else {
-//             console.log("Already " + maxTableSize + " cards on/in " + to)
-//         }}else{return false};
-//     removeCard(card, from)
-//     buildCards(to);
-//     buildCards(from);
-//     reportCardsToConsole();
-// };
 
 
+// dragging 
+var sortable = new Draggable.Sortable(
+    document.querySelector('#deck'), {
+        draggable: '.card',
+    }
+)
 
-// misc
-/* <div class="card" id="tableCard">
-        <div class="inner">
-            <h4 class="title"></h4>
-            <div class="picture"><div class="pic-interior"></div></div>
-            <p class="desc"></p>
-            <p class="stats"></p>
-        </div>
-    </div> */
+var sortable = new Draggable.Sortable(
+    document.querySelector('#table'), {
+        draggable: '.card',
+    }
+)
 
-
-
-
-//refactor this to instead be like 'writeCardTable' etc
-// This funciton takes a card from a place (from) and puts it somewhere else (to). Use lowercase strings 
-
-
-// function dealCard(from, to) {
-//     let fromlet;
-//     let tolet;
-//     let toLimit;
-
-//     if (from == "deck") {
-//         fromlet = deck;
-//     } else if (from == "table") {
-//         fromlet = table;
-//     } else if (from == "hand") {
-//         fromlet = hand;
-//     } else {
-//         console.log("Invalid params. deck table or hand as strings please.");
-//         return;
-//     };
-
-//     if (to == "deck") {
-//         tolet = deck;
-//         toLimit = 50;
-//     } else if (to == "table") {
-//         tolet = table;
-//         toLimit = 5;
-//     } else if (to == "hand") {
-//         tolet = hand;
-//         toLimit = 6;
-//     } else {
-//         console.log("Invalid params. deck table or hand as strings please.");
-//         return;
-//     };
-
-//     if (tolet.length > toLimit) {
-//         console.log(to + " was full. No card drawn.");
-//     } else if (fromlet.length > 0) {
-//         tolet.push(fromlet[0]);
-//         fromlet.shift();
-//         console.log("Card drawn ", tolet.slice(-1)[0], " from ", from, " and placed on ", to);
-//         reportCardsToConsole();
-//     } else {
-//         console.log("There are no cards in " + from + " to draw into " + to);
-//     }
-//     buildCards(table);
-// };
-
-
-
-    // // cardLocation = (eval(cardRaw.dataset.location).titleString);
-    // // console.log(cardNum);
-    // // console.log(cardLocation);
-
-
-    // reportCardsToConsole();
+var sortable = new Draggable.Sortable(
+    document.querySelector('#hand'), {
+        draggable: '.card',
+    }
+)
+sortable.on('sortable:start', () => {
+    console.log('sortable:start')
+})
+sortable.on('sortable:sort', () => {
+    console.log('sortable:sort')
+})
+sortable.on('sortable:sorted', () => {
+    console.log('sortable:sorted')
+})
+sortable.on('sortable:stop', () => {
+    console.log('sortable:stop')
+})

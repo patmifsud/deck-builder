@@ -59,3 +59,4 @@ var cBurn = {
     effectAttribute: 3,
     rarity: 2
 };
+
