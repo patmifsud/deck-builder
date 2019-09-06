@@ -11,31 +11,38 @@
 </head>
 
 <body>
-    <div id="table">
+    <div id="renameme">
         <h1>Deck Building Game Prototype </h1>
         <div class="ui-wrapper">
         <a class="button" id="dealButton">DEAL CARD</a> <a class="button" id="shuffleButton">SUFFLE DECK</a>
         </div>
-        <div id="cardRow">
 
-        </div>
-        <div id="Deck">
-            <h4>Deck</h4>
-
-        </div>
-        <div id="handcontianer">
-            <div id="hand">
-                <h4>Hand</h4>
+       
+        <div id="tablecontainer">
+                <h4>Table</h4>
+                <div id="table"> </div>
             </div>
-        </div>
+    </div>
 
+    <div id="handcontianer">
+            <h4>Hand</h4>
+            <div id="hand">
+
+            </div>
     </div>
-    <div id="deck">
+
+<hr>
+
+    <div id="deckcontainer">
             <h4>Deck</h4>
-    </div>
+            <div id="deck"> </div>
+        </div>
 
 
 </body>
+<script src="cardbinder.js"></script>
 <script src="core.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@shopify/draggable@1.0.0-beta.6/lib/draggable.bundle.js"></script>
+
 
 </html>
