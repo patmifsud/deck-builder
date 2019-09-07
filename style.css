@@ -11,7 +11,9 @@
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
-body{margin:0;}
+body {
+    margin: 0;
+}
 
 p,
 h1,
@@ -23,12 +25,12 @@ li,
 div {
     font-family: quiroh, helvetica, Arial, sans-serif;
     font-weight: 500;
-    margin-top:0;
+    margin-top: 0;
     font-style: normal;
     color: var(--textcolor);
 }
 
-h4{
+h4 {
     font-weight: bold;
     font-size: 19px;
     line-height: 23px;
@@ -49,12 +51,12 @@ body {
     opacity: 0.4;
 }
 
-.cardsGoHere{
+.cardsGoHere {
     display: flex;
     flex-wrap: wrap;
-    min-height:100px;
-    transition: min-height 0.5s ease-in;
-    transition: background-color 150ms cubic-bezier(.25,.8,.25,1);;
+    min-height: 100px;
+    transition: background-color 150ms cubic-bezier(.25, .8, .25, 1);
+    ;
 
 }
 
@@ -73,9 +75,10 @@ body {
 }
 
 
-.card:hover, a.button:hover{
+.card:hover,
+a.button:hover {
     box-shadow: var(--shadow-two);
-    transform: scale(1.05); 
+    transform: scale(1.05);
 
 }
 
@@ -89,7 +92,7 @@ a.button:active {
 
 #table {
     max-width: 1300px;
-    height:80vw;
+    height: 80vw;
 }
 
 
@@ -104,8 +107,8 @@ a.button {
     padding: 5px 10px;
     color: var(--textcolor);
     box-shadow: var(--shadow-one);
-    font-size:10px;
-    margin:0 15px;
+    font-size: 10px;
+    margin: 0 15px;
     font-weight: 700;
     transition: all 0.15s cubic-bezier(.25, .8, .25, 1);
     display: inline-table;
@@ -114,72 +117,102 @@ a.button {
 
 
 /* dragging */
-.draggable-source--is-dragging{
-opacity: 0.15;
-overflow: hidden;
-box-shadow: none!important;}
+.draggable-source--is-dragging {
+    opacity: 0.15;
+    overflow: hidden;
+    box-shadow: none !important;
+}
 
 
-.draggable-mirror	{
-    box-shadow: 7px 99px 134px -45px rgba(0,0,0,0.31)!important;
+.draggable-mirror {
+    box-shadow: 7px 99px 134px -45px rgba(0, 0, 0, 0.31) !important;
     opacity: 0.8;
     z-index: 50;
 }
 
-.draggable-container--over{
+.draggable-container--over {
     background-color: #eeeeee;
 }
 
-div{
-outline: none!important}
+div {
+    outline: none !important
+}
 
-#board{
-    margin-bottom:340px;
-    width: 90%;
-    padding:20px;
+#board {
+    width: calc(100% - 50px);
+    padding: 25px;
+    display: flex;
+    height: 75vh;
+
+}
+
+#tablecontainer {
+    float: left;
+    width: 100%;
+}
+
+#deckcontainer {
+    float: right;
     display: flex;
 }
-#tablecontainer{
-    float:left;
-    width:100%;
+
+.deckbox{
+    align-self: flex-end;
+    margin-top:auto;
 }
-#deckcontainer{
-    float:right;
+
+#deck{
+    min-width:130px;
+min-height:160px;
+background:#f9f9f9;
 }
 
 
 /* hand misc */
 
-#handcontianer{
-box-shadow: var(--shadow-one);
-position: fixed;
-padding:10px;
-max-height:300px;
-overflow: scroll;
-width:100%;
-bottom:0;
-background: rgba(255, 255, 255, 0.851);
-z-index: 30;
-transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.175);
+#handcontianer {
+    box-shadow: var(--shadow-one);
+    position: fixed;
+    padding: 10px;
+    max-height: 330px;
+    overflow: scroll;
+    width: 100%;
+    bottom: -50px;
+    background: rgba(255, 255, 255, 0.851);
+    z-index: 30;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.175);
 
 }
 
-#handcontianer.hide{
-    bottom:-200px;
+#handcontianer.hide {
+    bottom: -200px;
 }
 
-.bottomThird{
+.bottomThird {
     position: absolute;
-    z-index:0;
-    height:35vh;
-    bottom:0;
+    z-index: -1;
+    height: 35vh;
+    bottom: 0;
     width: 100%;
 }
 
 
 /* deck misc */
 
-#deck .card:nth-child(n+2){ position: absolute; box-shadow: 0 1px 5px rgba(70, 68, 67, 0.08), 0 1px 2px rgba(152, 148, 147, 0.12); }
-#deck .card:nth-child(1){ z-index:2; }
-#deck .card:not(:hover) div {visibility:hidden;}
-#deck .card:not(:hover) {background: url('img/backs.png'); background-size: contain; }
+#deck .card:nth-child(n+2) {
+    position: absolute;
+    box-shadow: 0 1px 5px rgba(70, 68, 67, 0.08), 0 1px 2px rgba(152, 148, 147, 0.12);
+}
+
+#deck .card:nth-child(1) {
+    z-index: 2;
+}
+
+#deck .card:not(:hover) div {
+    visibility: hidden;
+}
+
+#deck .card:not(:hover) {
+    background: url('img/backs.png');
+    background-size: contain;
+}

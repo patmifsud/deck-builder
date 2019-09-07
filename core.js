@@ -9,8 +9,8 @@ window.onload = function () {
     setTimeout(function () {
         document.querySelector('#handcontianer').classList.add('hide');
     }, 2000);
+    intro();
 }
-
 
 
 // Functions
@@ -64,7 +64,7 @@ function cardClick(cardRaw) {
 
 // 🃏 Rednering cards in HTML
 
-// Take all the cards in one place (hand, table, deck), create the html for each card and write it to the location provided 
+// Take all the cards in one place (hand, table, deck), create the html for each card and write it to the div of the location provided 
 function buildCards(location) {
     let collectToWrite = "";
     if (location.length > 0) {
