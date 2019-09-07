@@ -54,6 +54,8 @@ body {
     flex-wrap: wrap;
     min-height:100px;
     transition: min-height 0.5s ease-in;
+    transition: background-color 150ms cubic-bezier(.25,.8,.25,1);;
+
 }
 
 .card {
@@ -73,7 +75,7 @@ body {
 
 .card:hover, a.button:hover{
     box-shadow: var(--shadow-two);
-    transform: scale(1.1); 
+    transform: scale(1.05); 
 
 }
 
@@ -177,8 +179,7 @@ transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.175);
 
 /* deck misc */
 
-#deck .card:nth-child(n+2){ position: absolute; margin-bottom:-1px;}
+#deck .card:nth-child(n+2){ position: absolute; box-shadow: 0 1px 5px rgba(70, 68, 67, 0.08), 0 1px 2px rgba(152, 148, 147, 0.12); }
 #deck .card:nth-child(1){ z-index:2; }
 #deck .card:not(:hover) div {visibility:hidden;}
 #deck .card:not(:hover) {background: url('img/backs.png'); background-size: contain; }
-#deck .card:nth-child(6){  }

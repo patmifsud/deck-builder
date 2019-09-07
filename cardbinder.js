@@ -1,6 +1,24 @@
 
 // Config
 
+// Config
+
+
+deck = [cBlock, cBolt, cBlock, cBlock, cBurn, cStrike, cStrike];
+deck.maxSize = 50;
+deck.titleString = "deck";
+//  where is a card from this location permitted to move to on click or drag?
+deck.allowMove = "hand";
+
+table = [cBlock, cBlock, cBlock, cBurn, cStrike];
+table.maxSize = 20;
+table.titleString = "table";
+table.allowMove = "deck";
+
+hand = [cBlock];
+hand.maxSize = 5;
+hand.titleString = "hand";
+hand.allowMove = "table";
 
 
 // Cards
