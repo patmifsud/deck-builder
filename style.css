@@ -87,6 +87,7 @@ a.button:active {
 
 #table {
     max-width: 1300px;
+    height:80vw;
 }
 
 
@@ -150,11 +151,27 @@ outline: none!important}
 #handcontianer{
 box-shadow: var(--shadow-one);
 position: fixed;
-bottom:0;
 padding:10px;
+max-height:300px;
+overflow: scroll;
 width:100%;
+bottom:0;
 background: rgba(255, 255, 255, 0.851);
 z-index: 30;
+transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.175);
+
+}
+
+#handcontianer.hide{
+    bottom:-200px;
+}
+
+.bottomThird{
+    position: absolute;
+    z-index:0;
+    height:35vh;
+    bottom:0;
+    width: 100%;
 }
 
 
@@ -162,5 +179,6 @@ z-index: 30;
 
 #deck .card:nth-child(n+2){ position: absolute; margin-bottom:-1px;}
 #deck .card:nth-child(1){ z-index:2; }
-#deck .card div{display:none;}
-#deck .card {background: url('img/backs.png'); background-size: contain; }
+#deck .card:not(:hover) div {visibility:hidden;}
+#deck .card:not(:hover) {background: url('img/backs.png'); background-size: contain; }
+#deck .card:nth-child(6){  }

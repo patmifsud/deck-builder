@@ -40,6 +40,7 @@ function removeCard(cardNum, location) {
 function cardClick(cardRaw) {
     let cardNumber = parseInt(cardRaw.dataset.order);
     let cardLocation = window[cardRaw.dataset.location];
+
     if (cardLocation.allowMove !== false) {
         moveCard(cardNumber, cardLocation, window[cardLocation.allowMove]);
     } else {
@@ -185,6 +186,25 @@ function buildCardsAll() {
 }
 
 var heldCard;
+
+// show deck on bottom third of screen hover
+document.querySelector('.bottomThird').addEventListener("mouseover", function(){
+console.log("mouseover")
+document.querySelector('#handcontianer').classList.remove('hide');
+});
+document.querySelector('#handcontianer').addEventListener("mouseover", function(){
+    console.log("mouseleave")
+        document.querySelector('#handcontianer').classList.remove('hide');
+});
+// hide deck on mouse cursor exit
+document.querySelector('#handcontianer').addEventListener("mouseleave", function(){
+    console.log("mouseleave")
+    setTimeout(function () {
+        document.querySelector('#handcontianer').classList.add('hide');
+
+    },500);
+});
+
 
 // config
 
