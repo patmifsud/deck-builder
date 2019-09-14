@@ -6,9 +6,6 @@ window.onload = function () {
     loadDivs();
     buildCardsAll()
     reportCardsToConsole();
-    setTimeout(function () {
-        document.querySelector('#handcontianer').classList.add('hide');
-    }, 2000);
     intro();
 }
 
@@ -52,8 +49,7 @@ function removeCard(cardNum, location) {
 function cardClick(cardRaw) {
     let cardNumber = parseInt(cardRaw.dataset.order);
     let cardLocation = window[cardRaw.dataset.location];
-
-    if (cardLocation.allowMove !== false) {
+    if (cardLocation.allowMove != "no") {
         moveCard(cardNumber, cardLocation, window[cardLocation.allowMove]);
     } else {
         console.log("Can't move this card anywhere right now")
@@ -90,11 +86,26 @@ function buildCardsAll() {
 
 }
 
-function mintCards(mintThisCard, orderNumber, locationTitle) {
-    let mintedCard = "<div data-order=\"" + orderNumber + "\" data-location=\"" + locationTitle + "\" data-cardId=\"c" + mintThisCard.title + "\" class=\"card " + mintThisCard.title + "\" id=\"Card\" onClick=\"cardClick(this);\"> <div class=\"inner\"> <h4 class=\"title\">" + mintThisCard.title + "</h4> <div class=\"picture\"><div class=\"pic-interior\"></div></div> <p class=\"desc\"></p><p class=\"stats\">  Cost: " + mintThisCard.cost + "</p></div> </div>";
-    // check what is being minted:  console.log("minted a fresh " + mintThisCard.title + " in " + locationTitle);
+function mintCards(mintThisCard, orderNumber, locationTitle, extraClass) {
+
+    let mintedCard = "<div data-order=\"" + orderNumber + "\" data-location=\"" + locationTitle + "\" data-cardId=\"c" + mintThisCard.title + "\" class=\"card " + mintThisCard.title + " " + extraClass + "\" id=\"Card\" onClick=\"cardClick(this);\"> <div class=\"inner\"> <h4 class=\"title\">" + mintThisCard.title + "</h4> <div class=\"picture\"><div class=\"pic-interior\"></div></div> <p class=\"desc\"></p><p class=\"stats\">  Cost: " + mintThisCard.cost + "</p></div> </div>";
+    console.log("minted a fresh " + mintThisCard.title + " in " + locationTitle);
     return mintedCard;
 }
+
+// Animate in card to the end of a location
+function animateInCard(cardId, location, delay) {
+    sleep(delay).then(() => {
+    location.push(cardId);
+    console.log("Added " + cardId.title + " to " + location.titleString);
+    location.div.innerHTML += mintCards(cardId, location.length, location.titleString, "widthIn");
+    setTimeout(function () {
+        location.div.lastElementChild.classList.remove("widthIn");
+        buildCards(location);
+    }, 20);
+});
+}
+
 
 // 🎮 Gameplay functions
 
@@ -164,25 +175,46 @@ droppable.on('drag:stop', function () {
 document.querySelector('.bottomThird').addEventListener("mouseover", function () {
     console.log("mouseover")
     document.querySelector('#handcontianer').classList.remove('hide');
+    document.querySelector('#board').classList.add('dim');
+
 });
 document.querySelector('#handcontianer').addEventListener("mouseover", function () {
     console.log("mouseleave")
     document.querySelector('#handcontianer').classList.remove('hide');
+    document.querySelector('#board').classList.add('dim');
 });
 // hide deck on mouse cursor exit
 document.querySelector('#handcontianer').addEventListener("mouseleave", function () {
     console.log("mouseleave")
     setTimeout(function () {
         document.querySelector('#handcontianer').classList.add('hide');
+        document.querySelector('#board').classList.remove('dim');
+
     }, 300);
 });
 
 function updateCardNumberCounters() {
-    let deckCounterSpan = document.querySelector('.deckCounter');
-    deckCounterSpan.innerHTML = deck.length;
+    document.getElementById('deckCounter').innerHTML = deck.length;
+}
+
+// say something
+
+function saySomething(text, size, delay) {
+    sleep(delay).then(() => {
+        document.querySelector('#messages').innerHTML += "<span class=\"" + size + "\" >" + escapeTextAndFormat(text); + "</span>";
+    });
+}
+
+function clearSaySomething(delay) {
+    sleep(delay).then(() => {
+        document.querySelector('#messages').innerHTML = "";
+    });
 }
 
 
+function escapeTextAndFormat(text) {
+    return text
+}
 
 // Reporting and logging
 
@@ -222,7 +254,10 @@ function checkForCard(card, location) {
 };
 
 
-
+// code tools
+const sleep = (milliseconds) => {
+    return new Promise(resolve => setTimeout(resolve, milliseconds))
+  }
 
 // initalising variables and stuff
 
@@ -242,14 +277,28 @@ var deck = [];
 deck.maxSize = 50;
 deck.titleString = "deck";
 //  where is a card from this location permitted to move to on click or drag?
-deck.allowMove = "hand";
+deck.allowMove = "no";
+deck.onclick = "";
 
-var table = [cBlock, cBlock, cBlock, cStrike, cStrike];
+var table = [];
 table.maxSize = 20;
 table.titleString = "table";
 table.allowMove = "deck";
+table.onclick = "";
 
 var hand = [];
 hand.maxSize = 5;
 hand.titleString = "hand";
-hand.allowMove = "table";
+hand.allowMove = "no";
+hand.onclick = "";
+
+// Script
+
+function intro() {
+    saySomething("Click or drag a card to add it to your deck", "none", 700);
+    animateInCard(cBlock, table, 1700);
+    animateInCard(cBlock, table, 2100);
+    animateInCard(cBlock, table, 2400);
+    sleep(3000).then(() => {document.getElementById('deckcontainer').classList.remove("invisible");});
+
+}

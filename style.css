@@ -11,8 +11,16 @@
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
+
+*, *::before, *::after {
+    box-sizing: border-box;
+  }
+
 body {
     margin: 0;
+    background: #ffffff;
+    opacity: 0;
+    height:100vh;
 }
 
 p,
@@ -37,7 +45,115 @@ h4 {
     text-transform: uppercase;
 }
 
-.jumbotron{
+#screen{
+width:100%;
+}
+
+.flex-one{
+    width:100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-self: center;
+}
+
+#status{
+    display: flex;
+    background-color: rgba(0, 0, 0, 0.104);
+    flex-wrap: wrap;
+    width:100%;
+    height:5vh;
+}
+
+#board {
+    width:100%;
+    height: 80vh;
+}
+
+#messages{
+    font-size: 3vh;
+    text-align: center;
+    font-size: 2.5vh;
+    padding: 0.6vh 1.5vh;
+    color: #404040;
+    background: rgb(255, 252, 206);
+    border-radius: 4px;
+    text-align: center;
+
+}
+
+#inner-board{
+    width:100%;
+    margin:5vh 1.5vh 30vh 1.5vh;
+    height:45vh;
+}
+
+#table{
+
+}
+
+
+#tablecontainer {
+    width: 100%;
+}
+
+#deckcontainer {
+    border-radius: var(--border-raduis);
+    position: absolute;
+    bottom:10vh;
+    right:3vh;
+    box-shadow: var(--shadow-one);
+    cursor: pointer;
+    transition: opacity 2s cubic-bezier(0.175, 0.885, 0.32, 1.175);
+}
+#deckCounter{
+    padding:1.5vh;
+    text-align:right;
+    position: absolute;
+    right:0;
+}
+
+
+#deck{
+    height:24vh;
+    width:20vh;
+    background:#ffffffd0;
+}
+
+#handcontianer {
+    box-shadow: var(--shadow-one);
+    position: fixed;
+    overflow: scroll;
+    width: 100%;
+    height: 30vh;
+    padding-top:5vh;
+    background: rgba(255, 255, 255, 0.851);
+    z-index: 30;
+    bottom:0;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.175);
+}
+
+#handcontianer .handCounterH{
+    top:0;
+    padding:2.5vh;
+    position: absolute;
+
+}
+
+
+#handcontianer.hide {
+    bottom:-20vh;
+}
+
+
+#hand{
+    position: relative;
+    top: -5vh;
+    height:30vh;
+}
+
+ .jumbotron{
 text-align: center;
 padding-top:8vh;
 padding-bottom:2vh;
@@ -46,27 +162,10 @@ height:8vh;
 min-height:40px;
 }
 
-.jumbotron h2{
 
-
-}
-
-
-
-
-body {
-    background: #ffffff;
-    opacity: 0;
-}
 
 .ui-wrapper {
-    width: 100%;
-    display: flex;
-    flex-wrap: wrap;
-    margin: 0 0 20px 0;
-    overscroll-behavior: none;
-    opacity: 0.4;
-    position: fixed;
+
 }
 
 .cardsGoHere {
@@ -74,23 +173,27 @@ body {
     flex-wrap: wrap;
     min-height: 100px;
     transition: background-color 150ms cubic-bezier(.25, .8, .25, 1);
-    margin:0 -15px;
 
 }
 
 .card {
     display: inline-flex;
+    overflow: hidden;
     background: var(--cardbg);
     border-radius: var(--border-raduis);
-    padding: 15px;
-    margin:15px;
-    min-width: 125px;
-    max-width: 150px;
-    min-height: 200px;
-    /* transition: all 0.2s cubic-bezier(.25,.8,.25,1); */
+    padding-left: 2.5vh;
+    padding-right: 2.5vh;
+    padding-top: 2.5vh;
+    padding-bottom: 2.5vh;
+    margin:1.5vh;
+    height:20vh;
+    width:15vh;
+   transition: width 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+   transition: opacity 0.6s cubic-bezier(0.6, 0.04, 0.98, 0.335);
     box-shadow: var(--shadow-one);
     cursor: pointer;
 }
+
 
 
 .card:hover,
@@ -108,18 +211,6 @@ a.button:active {
 
 
 
-#table {
-    max-width: 1300px;
-    height: 70vw;
-}
-
-
-#table #cardRow {
-    display: flex;
-    flex-wrap: wrap;
-    width: 100%;
-    margin: 0 -15px;
-}
 
 a.button {
     padding: 5px 10px;
@@ -156,61 +247,7 @@ div {
     outline: none !important
 }
 
-#board {
-    justify-content: space-between;
-    width: calc(100% - 50px);
-    padding: 25px;
-    display: flex;
-    height: 70vh;
-    flex-wrap: wrap;
-}
 
-#tablecontainer {
-    float: left;
-    flex-grow:4;
-    width: 10%;
-}
-
-#deckcontainer {
-    float: right;    
-    flex-grow:1;
-    display: flex;
-    height: 100%;
-
-}
-
-.deckbox{
-    align-self: flex-end;
-    margin-top:auto;
-    margin-left: auto;
-}
-
-#deck{
-    min-width:140px;
-    min-height:190px;
-    background:#f9f9f9;
-}
-
-
-/* hand misc */
-
-#handcontianer {
-    box-shadow: var(--shadow-one);
-    position: fixed;
-    padding: 10px;
-    max-height: 330px;
-    overflow: scroll;
-    width: 100%;
-    bottom: -50px;
-    background: rgba(255, 255, 255, 0.851);
-    z-index: 30;
-    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.175);
-
-}
-
-#handcontianer.hide {
-    bottom: -200px;
-}
 
 .bottomThird {
     position: absolute;
@@ -239,5 +276,30 @@ div {
 #deck .card:not(:hover) {
     background: url('img/backs.png');
     background-size: contain;
+    background-position: center;
+    background background-repeat: none;
 }
 
+
+.dim{
+opacity: 0.80;
+}
+
+.invisible{
+    opacity: 0;
+}
+
+.off{
+    display:none;
+}
+
+/* animation */
+.popin{
+transform: scale(0.01)
+}
+
+.widthIn{
+    width:1px!important;
+opacity: 0;
+
+}

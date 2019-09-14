@@ -13,34 +13,36 @@
 
 
 </head>
-<!-- 0.1 -->
+<!-- 0.2 -->
 
 <body>
-    <div id="renameme">
-        <div class="ui-wrapper">
-            <h3>Deck Building Game Prototype 0.1</h3>
-            <a class="button" onclick=" shuffle(deck);" id="shuffleButton">SUFFLE DECK</a> <a class="button"
-                onclick=" buildCardsAll();" id="refreshButton">REFRESH</a>
+    <div id="screen">
+        <div id="status" class="invisible">
+            <div id="title"></div>
+            <div id="energy"></div>
+            <div id="health"></div>
         </div>
-        <div class="jumbotron">
-            <h2>Click or drag a card to add it to your deck.</h2>
-        </div>
-        <div id="board">
-            <div id="tablecontainer">
-                <div id="table" class="cardsGoHere playableLocation"> </div>
+
+        <div id="board" class="flex-one">
+
+            <div id="inner-board" class="flex-one">
+                <div id="messages"></div>
+                <div id="tablecontainer" class="flex-one">
+                    <div id="table" class="flex-one cardsGoHere playableLocation"> </div>
+                </div>
             </div>
-            <div id="deckcontainer">
+            <div id="deckcontainer" class="invisible">
                 <div class="deckbox">
-                    <h4>Deck (<span class="deckCounter">0</span>) </h4>
+                    <h4 id="deckCounter">>0</h4>
                     <div id="deck" class="cardsGoHere playableLocation"> </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <div id="handcontianer">
-        <h4>Hand (Max 5)</h4>
-        <div id="hand" class="cardsGoHere playableLocation">
+    <div id="handcontianer" class="off hide">
+        <h4 class="handCounterH">Hand (Max 5)</h4>
+        <div id="hand" class="flex-one cardsGoHere playableLocation">
 
         </div>
     </div>
