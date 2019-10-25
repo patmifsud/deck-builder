@@ -4,42 +4,38 @@
 
 window.onload = function () {
     loadDivs();
-    buildCardsAll()
+    buildCardsAll();
     reportCardsToConsole();
     intro();
 }
 
 
 // Functions
-// 
-// 
-
 // 🚚 Card location array logistics
-function moveCard(cardNum, from, to) {
+function moveCard(cardOrderInLocation, from, to) {
     if (to.length < to.maxSize) {
-        to.push(from[cardNum]);
-        console.log("Added card to " + to.titleString);
-        removeCard(cardNum, from)
+        to.push(from[cardOrderInLocation]);
+        removeCard(cardOrderInLocation, from)
         buildCardsAll();
     } else {
         console.log("Already " + table.maxSize + " cards on/in " + to.titleString + ". Called off the action")
     }
 };
 
-function placeCard(cardNum, location) {
+function placeCard(cardOrderInLocation, location) {
     if (location.length < location.maxSize) {
-        location.push(location[cardNum]);
+        location.push(location[cardOrderInLocation]);
     } else {
         console.log("Already " + table.maxSize + " cards on/in " + location.titleString + ". Called off the action")
     }
     buildCardsAll();
-    console.log("Added card " + cardNum + " to " + location.titleString);
+    console.log("Added card " + cardOrderInLocation + " to " + location.titleString);
 };
 
-function removeCard(cardNum, location) {
-    location.splice(cardNum, 1);
+function removeCard(cardOrderInLocation, location) {
+    location.splice(cardOrderInLocation, 1);
     buildCardsAll();
-    console.log("removed card no. " + cardNum + " from " + location.titleString);
+    console.log("removed card no. " + cardOrderInLocation + " from " + location.titleString);
 };
 
 
@@ -47,10 +43,10 @@ function removeCard(cardNum, location) {
 // 🃏 Card Interaction
 
 function cardClick(cardRaw) {
-    let cardNumber = parseInt(cardRaw.dataset.order);
+    let cardOrderInLocationber = parseInt(cardRaw.dataset.order);
     let cardLocation = window[cardRaw.dataset.location];
     if (cardLocation.allowMove != "no") {
-        moveCard(cardNumber, cardLocation, window[cardLocation.allowMove]);
+        moveCard(cardOrderInLocationber, cardLocation, window[cardLocation.allowMove]);
     } else {
         console.log("Can't move this card anywhere right now")
     }
@@ -70,7 +66,7 @@ function buildCards(location) {
         };
     }
     location.div.innerHTML = collectToWrite;
-    updateCardNumberCounters();
+    updatecardOrderInLocationberCounters();
 };
 
 function buildCardsAll() {
@@ -96,14 +92,14 @@ function mintCards(mintThisCard, orderNumber, locationTitle, extraClass) {
 // Animate in card to the end of a location
 function animateInCard(cardId, location, delay) {
     sleep(delay).then(() => {
-    location.push(cardId);
-    console.log("Added " + cardId.title + " to " + location.titleString);
-    location.div.innerHTML += mintCards(cardId, location.length, location.titleString, "widthIn");
-    setTimeout(function () {
-        location.div.lastElementChild.classList.remove("widthIn");
-        buildCards(location);
-    }, 20);
-});
+        location.push(cardId);
+        console.log("Added " + cardId.title + " to " + location.titleString);
+        location.div.innerHTML += mintCards(cardId, location.length, location.titleString, "widthIn");
+        setTimeout(function () {
+            location.div.lastElementChild.classList.remove("widthIn");
+            buildCards(location);
+        }, 20);
+    });
 }
 
 
@@ -137,6 +133,17 @@ var droppable = new Draggable.Sortable(document.querySelectorAll('.playableLocat
 droppable.on('drag:start', function () {
     setTimeout(function () {
         heldCard = document.querySelector('.draggable--original');
+        let locationList = [deck, hand, table];
+        for (let i = 0; i < locationList.length; i++) {
+            // does the "go through each location div. Does it = the alow move of the data-location of card? If not it should be dropped there, so let's remove class"
+            if (window[heldCard.getAttribute('data-location')].allowMove.includes(locationList[i].titleString) == false ) {
+                console.log(1);
+                if (locationList[i].titleString == locationList.titleString) {
+                    console.log(2);
+                } else{ locationList[i].div.classList.remove("playableLocation");
+                console.log(3);}
+            }
+        }
     }, 3);
 });
 
@@ -193,7 +200,7 @@ document.querySelector('#handcontianer').addEventListener("mouseleave", function
     }, 300);
 });
 
-function updateCardNumberCounters() {
+function updatecardOrderInLocationberCounters() {
     document.getElementById('deckCounter').innerHTML = deck.length;
 }
 
@@ -257,7 +264,7 @@ function checkForCard(card, location) {
 // code tools
 const sleep = (milliseconds) => {
     return new Promise(resolve => setTimeout(resolve, milliseconds))
-  }
+}
 
 // initalising variables and stuff
 
@@ -295,10 +302,12 @@ hand.onclick = "";
 // Script
 
 function intro() {
-    saySomething("Click or drag a card to add it to your deck", "none", 700);
-    animateInCard(cBlock, table, 1700);
-    animateInCard(cBlock, table, 2100);
-    animateInCard(cBlock, table, 2400);
-    sleep(3000).then(() => {document.getElementById('deckcontainer').classList.remove("invisible");});
+    animateInCard(cBlock, table, 700);
+    animateInCard(cBlock, table, 1100);
+    animateInCard(cBlock, table, 1400);
+    saySomething("Click or drag a card to add it to your deck", "none", 0);
+    sleep(3000).then(() => {
+        document.getElementById('deckcontainer').classList.remove("invisible");
+    });
 
 }

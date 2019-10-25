@@ -8,13 +8,9 @@
     --shadow-two: 0 12px 20px -12px rgba(0, 0, 0, 0.35);
     --shadow-inset: inset 0px 10px 84px -23px rgba(17, 20, 38, 0.1);
     user-select: none;
+    box-sizing: border-box;
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
-
-
-*, *::before, *::after {
-    box-sizing: border-box;
-  }
 
 body {
     margin: 0;
@@ -99,11 +95,11 @@ width:100%;
 }
 
 #deckcontainer {
-    border-radius: var(--border-raduis);
     position: absolute;
     bottom:10vh;
     right:3vh;
-    box-shadow: var(--shadow-one);
+    background: #dadada;
+    border-radius: 20px;
     cursor: pointer;
     transition: opacity 2s cubic-bezier(0.175, 0.885, 0.32, 1.175);
 }
@@ -274,10 +270,9 @@ div {
 }
 
 #deck .card:not(:hover) {
-    background: url('img/backs.png');
-    background-size: contain;
+    background-size: contain ;
+    background-image: url('img/backs.png');
     background-position: center;
-    background background-repeat: none;
 }
 
 
